@@ -1,4 +1,5 @@
 const router = require("express").Router();
+// const mongoose = require("mongoose");
 
 const movieService = require("../services/movieService")
 
@@ -6,12 +7,19 @@ router.get("/create", (req, res) => {
     res.render("create")
 });
 
-router.post("/create", (req, res) => {
+router.post("/create", async (req, res) => {
     const newMovie = req.body;
 
-    movieService.create(newMovie);
+    try {
+        await movieService.create(newMovie);
 
-    res.redirect("/")
+        res.redirect("/");
+    } catch(err) {
+        console.log(err.message);
+        res.redirect("/create")
+    }
+
+  
 });
 
 router.get("/movies/:movieId", (req, res) => {
