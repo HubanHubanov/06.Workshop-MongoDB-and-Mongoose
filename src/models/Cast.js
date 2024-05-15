@@ -15,7 +15,7 @@ const castScheme = new mongoose.Schema({
         type: String,
         required: true
      },
-     nameInMovies: {
+     nameInMovie: {
         type: String,
         reqired: true
      },

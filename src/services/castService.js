@@ -1,3 +1,3 @@
-model ???
+const Cast = require("../models/Cast")
 
-exports.create = (castData) => 
+exports.create = (castData) => Cast.create(castData);
