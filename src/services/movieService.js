@@ -1,25 +1,10 @@
 const Movie = require("../models/Movie");
 
-const movies = [
-  {
-    _id: 1,
-    title: "Jungle cruise",
-    genre: "adventure",
-    director: "Jaume Collet-Serra",
-    year: "2021",
-    imageUrl: "/img/jungle-cruise.jpeg",
-    rating: "5",
-    description:
-      "Based on Disneyland's theme park ride where a small riverboat takes a group of travelers through a jungle filled with dangerous animals and reptiles but with a supernatural element.",               
-  },
-];
+exports.getAll =   () =>  Movie.find();
 
-exports.getAll = () => {
-  return movies.slice();
-};
-
-exports.search = (title, genre, year) => {
-  let result = movies.slice();
+// TODO: Filter result in mongodb
+exports.search = async (title, genre, year) => {
+  let result = await Movie.find().lean();
   if (title) {
     result = result.filter((movie) =>
       movie.title
@@ -40,13 +25,5 @@ exports.search = (title, genre, year) => {
   return result;
 };
 
-exports.getOne = (movieId) => {
-  const movie = movies.find((movie) => movie._id == movieId);
-  return movie;
-};
-
-exports.create = async (movieData) => {
- const result = await Movie.create(movieData);
-
- return result;
-};
+exports.getOne = (movieId) =>  Movie.findById(movieId)
+exports.create = (movieData) => Movie.create(movieData);
