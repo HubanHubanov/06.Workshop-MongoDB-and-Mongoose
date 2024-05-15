@@ -1,7 +1,8 @@
 const router = require("express").Router();
 // const mongoose = require("mongoose");
 
-const movieService = require("../services/movieService")
+const movieService = require("../services/movieService");
+const castService = require("../services/castService")
 
 router.get("/create", (req, res) => {
     res.render("create")
@@ -9,6 +10,7 @@ router.get("/create", (req, res) => {
 
 router.post("/create", async (req, res) => {
     const newMovie = req.body;
+
 
     try {
         await movieService.create(newMovie);
@@ -35,8 +37,9 @@ router.get("/movies/:movieId", async (req, res) => {
 
 router.get("/movies/:movieId/attach", async (req, res) => {
     const movie = await movieService.getOne(req.params.movieId).lean();
-
-    res.render("movie/attach", { ...movie });
+    const casts = await castService.getAll().lean()    
+    //TODO remove already added casts
+    res.render("movie/attach", { ...movie, casts });
 })
 
 module.exports = router;
