@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Movie = require("./Movie");
 
 const castScheme = new mongoose.Schema({
     name: {
@@ -30,6 +31,10 @@ const castScheme = new mongoose.Schema({
             message: (props) => `${props.value} is invalid url for the castImage!` 
         }
       },
+      // movies: [{
+      //   type: mongoose.Types.ObjectId,
+      //   ref: "Movie"
+      // }]
     
 });
 
